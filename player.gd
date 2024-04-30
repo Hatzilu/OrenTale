@@ -12,7 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
 	
-	if (is_on_floor() && velocity.x != 0):
+	if is_on_floor() && velocity.x != 0:
 		sprite_2d.animation = "walk"
 	else:
 		sprite_2d.animation = "default"

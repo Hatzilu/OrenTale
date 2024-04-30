@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://kawskyunhhgd"]
+[gd_scene load_steps=14 format=3 uid="uid://kawskyunhhgd"]
 
-[ext_resource type="Script" path="res://scenes/Mobs/Slime.gd" id="1_5sc50"]
+[ext_resource type="Script" path="res://scenes/Mobs/generic/GenericMobAI.gd" id="1_70dsr"]
 [ext_resource type="Texture2D" uid="uid://bcf4nad6jcykk" path="res://sprites/Slime/Slime_Spiked_Idle.png" id="2_u2nrj"]
 [ext_resource type="Texture2D" uid="uid://ch5etb8qvcaq1" path="res://sprites/Slime/Slime_Spiked_Run.png" id="3_rg8aj"]
 
@@ -73,31 +73,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4ync"]
-height = 32.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljue2"]
-size = Vector2(92, 38)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwrfc"]
+height = 34.0
 
 [node name="Slime" type="CharacterBody2D"]
-script = ExtResource("1_5sc50")
-SPEED = null
-move_dir = null
+script = ExtResource("1_70dsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_1h83p")
 animation = &"walk"
 frame = 2
 frame_progress = 0.415118
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_x4ync")
-
-[node name="DetectionArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_ljue2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_rwrfc")
 debug_color = Color(0.669633, 0.504904, 0.192116, 0.42)
-
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
