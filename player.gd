@@ -41,5 +41,4 @@ func _physics_process(delta):
 		sprite_2d.flip_h = true
 	if direction == 1:
 		sprite_2d.flip_h = false
-	print(direction)
 	move_and_slide()
