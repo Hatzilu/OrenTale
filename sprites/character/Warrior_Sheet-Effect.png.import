@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djw7fwinkexqu"
-path="res://.godot/imported/Warrior_Sheet-Effect.png-6d107e9ef083fb77f4b1516982e79a97.ctex"
+path="res://.godot/imported/Warrior_Sheet-Effect.png-5272450626b2cea17ad09a66f06ca3cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritesa/character/Warrior_Sheet-Effect.png"
-dest_files=["res://.godot/imported/Warrior_Sheet-Effect.png-6d107e9ef083fb77f4b1516982e79a97.ctex"]
+source_file="res://sprites/character/Warrior_Sheet-Effect.png"
+dest_files=["res://.godot/imported/Warrior_Sheet-Effect.png-5272450626b2cea17ad09a66f06ca3cf.ctex"]
 
 [params]
 

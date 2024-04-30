@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0njdmrvdtpc8"
-path="res://.godot/imported/character_jump.png-675718653c3b762141591137b3c41de2.ctex"
+uid="uid://c1fvi71nenkim"
+path="res://.godot/imported/Nature_props_01.png-4b2d06c941b4297c0f0b8260885e92b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritesa/character_jump.png"
-dest_files=["res://.godot/imported/character_jump.png-675718653c3b762141591137b3c41de2.ctex"]
+source_file="res://sprites/tilemaps/default/Nature_props_01.png"
+dest_files=["res://.godot/imported/Nature_props_01.png-4b2d06c941b4297c0f0b8260885e92b4.ctex"]
 
 [params]
 
