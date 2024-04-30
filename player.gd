@@ -119,6 +119,8 @@ func _on_hurt_timer_timeout():
 		blinks_left -= 1
 		blink_timer.start(BLINK_DURATION)
 		return
+		
+	blinks_left = MAX_BLINKS
 	blink_timer.stop()
 	set_modulate(Color(1,1,1,1))
 	set_collision_layer_value(0,true)
