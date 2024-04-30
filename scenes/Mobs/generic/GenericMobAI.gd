@@ -6,6 +6,10 @@ extends CharacterBody2D
 @export var SPEED = 300
 @export var move_dir: Vector2
 
+@export var health = 5
+
+@export var damage = 5
+
 const ACTION_DURATION_SECONDS = 5
 const AGGRO_DURATION_SECONDS = 5
 
@@ -20,7 +24,7 @@ var Action = {
 }
 
 # This is the position of the player that aggro'd the mob, if it's nil, then there's no aggro
-var target_pos: Vector2
+var target: CharacterBody2D
 
 var aggro_timer = 0
 
@@ -61,20 +65,20 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
-	# If the mob is aggroed, just  move towards the player
-	if target_pos && aggro_timer > 0:
-		velocity.x = move_toward(global_position.x, target_pos.x, delta)
-
-		#global_position = velocity * SPEED * delta
+	# If the mob is aggroed, just move towards the player
+	if target && aggro_timer > 0:
+		var direction = global_position.direction_to(target.position)
+		velocity.x = direction.x * SPEED * delta
+		animation.flip_h = direction.x < 0
 		move_and_slide()
 		return
 		
-	if current_action == Action.MOVE_LEFT:
+	elif current_action == Action.MOVE_LEFT:
 		velocity.x = SPEED * delta
 		animation.flip_h = false
 		animation.play("walk")
 		
-	if current_action == Action.MOVE_RIGHT:
+	elif current_action == Action.MOVE_RIGHT:
 		velocity.x = (SPEED * delta) * (-1)
 		animation.flip_h = true
 		animation.play("walk")
@@ -84,9 +88,10 @@ func _physics_process(delta):
 		animation.play("default")
 	move_and_slide()
 
-# Handle mob aggro onto player if detected
+# this is the logic for if the area2D detects a player, AKA mob "aggro"
 func _on_area_2d_body_entered(body):
 	if !body.is_in_group("Players"):
 		return
 	aggro_timer = AGGRO_DURATION_SECONDS
-	target_pos = body.position
+	#var n = body.get_node()
+	target = body

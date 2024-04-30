@@ -79,7 +79,7 @@ height = 34.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qq0yd"]
 size = Vector2(118, 46)
 
-[node name="Slime" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" groups=["Enemies"]]
 script = ExtResource("1_70dsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -90,6 +90,7 @@ frame = 2
 frame_progress = 0.415118
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_rwrfc")
 debug_color = Color(0.669633, 0.504904, 0.192116, 0.42)
