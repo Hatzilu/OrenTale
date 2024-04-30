@@ -3,6 +3,9 @@ extends CharacterBody2D
 
 @onready var animation = $AnimatedSprite2D
 @onready var detection_area = $Area2D
+@onready var aggro_timer = $AggroTimer
+@onready var action_timer = $ActionTimer
+
 @export var SPEED = 300
 @export var move_dir: Vector2
 
@@ -11,11 +14,11 @@ extends CharacterBody2D
 @export var damage = 5
 
 const ACTION_DURATION_SECONDS = 5
-const AGGRO_DURATION_SECONDS = 5
+const AGGRO_DURATION_SECONDS = 10
 
 var current_action: int
 
-var time_until_next_action = ACTION_DURATION_SECONDS
+#var time_until_next_action = ACTION_DURATION_SECONDS
 
 var Action = {
 	IDLE = 0,
@@ -25,9 +28,6 @@ var Action = {
 
 # This is the position of the player that aggro'd the mob, if it's nil, then there's no aggro
 var target: CharacterBody2D
-
-var aggro_timer = 0
-
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -42,19 +42,6 @@ func _ready():
 	current_action = Action.IDLE
 	
 
-func _process(delta):
-	if aggro_timer > 0:
-		aggro_timer -= 1 * delta
-		return
-		
-	if time_until_next_action > 0:
-		time_until_next_action -= 1 * delta
-		return
-	
-	time_until_next_action = ACTION_DURATION_SECONDS
-	_handle_action()
-	print("new action: %s" % current_action)
-	
 func _physics_process(delta):
 	#if is_on_floor() && velocity.x != 0:
 		#sprite_2d.animation = "walk"
@@ -66,7 +53,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		
 	# If the mob is aggroed, just move towards the player
-	if target && aggro_timer > 0:
+	if target:
 		var direction = global_position.direction_to(target.position)
 		velocity.x = direction.x * SPEED * delta
 		animation.flip_h = direction.x < 0
@@ -92,6 +79,19 @@ func _physics_process(delta):
 func _on_area_2d_body_entered(body):
 	if !body.is_in_group("Players"):
 		return
-	aggro_timer = AGGRO_DURATION_SECONDS
-	#var n = body.get_node()
+	aggro_timer.start(AGGRO_DURATION_SECONDS)
+	action_timer.stop()
 	target = body
+
+
+func _on_aggro_timer_timeout():
+	print("Aggro expired")
+	target = null
+	if action_timer.is_stopped():
+		action_timer.start(ACTION_DURATION_SECONDS)
+
+
+func _on_action_timer_timeout():
+	_handle_action()
+	print("New action: %s" % current_action)
+	action_timer.start(ACTION_DURATION_SECONDS)

@@ -37,23 +37,15 @@ func _physics_process(delta):
 	
 	# if the player was hurt in  the last frame, apply knockback
 	if flinch_velocity != Vector2.ZERO:
-		#print("flithc!! x: %s" % flinch_to.x)
 		velocity = flinch_velocity
-		#if flinch_to.x < 0:
-			#flinch_to.x = flinch_to.x + 50
-		#if flinch_to.x > 0:
-			#flinch_to.x = flinch_to.x - 50
-			#
+
 		flinch_velocity.x = move_toward(flinch_velocity.x,0,SPEED * 10 * delta)
 		flinch_velocity.y = move_toward(flinch_velocity.y,0,SPEED * 10 * delta)
-		#velocity.x = move_toward(global_position.x, flinch_velocity.x, delta)
-		print(velocity.x)
-		print(flinch_velocity.x)
-		#flinch_to = Vector2(flinch_to.x/2, flinch_to.y/2)
+
 		move_and_slide()
 		return
 		
-	# handle 
+	# handle attack logic
 	if Input.is_action_pressed("Attack"):
 		is_attacking = true
 		sprite_2d.animation = "attack"
@@ -85,7 +77,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, 50)
 
-
+	# flip the sprite according to the direction
 	if direction == -1:
 		sprite_2d.flip_h = true
 	if direction == 1:
