@@ -1,24 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://brsxg7gl1moar"]
+[gd_scene load_steps=4 format=3 uid="uid://ctmgpmx1wvncx"]
 
+[ext_resource type="Script" path="res://playerUI.gd" id="1_05mu8"]
 [ext_resource type="Texture2D" uid="uid://cofvlm1d164y2" path="res://sprites/UI/bar/bar.png" id="1_gq881"]
 [ext_resource type="Texture2D" uid="uid://brouipsptdgqf" path="res://sprites/UI/bar/health.png" id="2_oye8b"]
-[ext_resource type="Texture2D" uid="uid://dlvhwfvt5oagp" path="res://sprites/UI/bar/mana.png" id="3_t7hwe"]
 
-[node name="Ui" type="Node2D"]
+[node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="HP" type="TextureProgressBar" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_05mu8")
+
+[node name="HP" type="TextureProgressBar" parent="Control"]
+z_index = 3
 texture_filter = 1
-offset_right = 89.0
-offset_bottom = 18.0
-value = 50.0
+layout_mode = 0
+offset_left = 12.0
+offset_top = 620.0
+offset_right = 101.0
+offset_bottom = 638.0
+value = 100.0
 texture_under = ExtResource("1_gq881")
 texture_progress = ExtResource("2_oye8b")
-
-[node name="MP" type="TextureProgressBar" parent="."]
-texture_filter = 1
-offset_left = 90.0
-offset_right = 179.0
-offset_bottom = 18.0
-value = 50.0
-texture_under = ExtResource("1_gq881")
-texture_progress = ExtResource("3_t7hwe")

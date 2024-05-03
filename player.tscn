@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c64rvfauilttl"]
+[gd_scene load_steps=41 format=3 uid="uid://c64rvfauilttl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_r8qge"]
 [ext_resource type="Texture2D" uid="uid://d00n40meswj6u" path="res://sprites/character_idle.png" id="2_povaq"]
@@ -240,15 +240,25 @@ height = 32.0
 radius = 11.0
 height = 44.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bh4y1"]
+size = Vector2(36, 31)
+
+[sub_resource type="Animation" id="Animation_1q87c"]
+resource_name = "default"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jequ1"]
+_data = {
+"default": SubResource("Animation_1q87c")
+}
+
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Players"]]
 script = ExtResource("1_r8qge")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_b08rd")
-animation = &"jump"
+animation = &"attack"
 autoplay = "default"
-frame_progress = 0.791409
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
@@ -262,7 +272,25 @@ shape = SubResource("CapsuleShape2D_jjtcq")
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.25
 
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(29, 2.5)
+shape = SubResource("RectangleShape2D_bh4y1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jequ1")
+}
+
 [connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
-[connection signal="timeout" from="HurtTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_timer_timeout"]
