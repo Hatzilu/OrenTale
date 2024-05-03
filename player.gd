@@ -49,10 +49,6 @@ func set_hp(new_hp_value: int):
 	hp = amount
 	on_hp_changed.emit(hp)
 
-#func _process(delta):
-	#if blinks_left > 0 && blink_timer.:
-		#invincible_duration -= 1 * delta
-
 func _physics_process(delta):
 	
 	# if the player was hurt in  the last frame, apply knockback
@@ -135,7 +131,6 @@ func _on_hurtbox_body_entered(body):
 		collision_shape_2d.set_visibility_layer_bit(0,false)
 		flinch_velocity = Vector2(damage*100*h_direction.x, damage*100*h_direction.y);
 
-
 func _on_hurt_timer_timeout():
 	
 	if blinks_left % 2 != 0:
@@ -156,4 +151,3 @@ func _on_hurt_timer_timeout():
 	
 signal on_hp_changed(hp)
 signal on_mp_changed(hp)
-
